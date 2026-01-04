@@ -1,0 +1,30 @@
+<section class="min-h-[60vh] flex flex-col justify-center animate-fade-in">
+  <h1 class="text-6xl md:text-8xl font-bold leading-[0.9] tracking-tight">
+    Oliver <br />
+    Thylmann<span class="text-accent">.</span>
+  </h1>
+  <div class="mt-8 space-y-4 max-w-2xl">
+    <p class="text-xl md:text-2xl text-text-muted">
+      Serial Entrepreneur. Developer Whisperer. <br />
+      Building <span class="text-text-main">meaningful systems</span> since 2000.
+    </p>
+    <div class="flex gap-4 pt-4">
+      <a href="https://giantswarm.io" class="px-6 py-3 border border-accent/20 rounded-full text-accent hover:bg-accent/10 transition-colors">
+        Current: Giant Swarm
+      </a>
+      <a href="#ventures" class="px-6 py-3 text-text-muted hover:text-text-main transition-colors">
+        View Journey &darr;
+      </a>
+    </div>
+  </div>
+</section>
+
+<style>
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .animate-fade-in {
+    animation: fadeIn 0.8s ease-out forwards;
+  }
+</style>

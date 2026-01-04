@@ -1,0 +1,90 @@
+@import "tailwindcss";
+
+:root {
+    /*
+   * DESIGN TOKENS
+   * Defined in .resonance/knowledge/design_system.md
+   */
+
+    /* CORE COLORS */
+    --color-bg: #0F1115;
+    /* Deep Charcoal */
+    --color-text-primary: #E2E8F0;
+    /* Off-White */
+    --color-text-secondary: #94A3B8;
+    /* Slate Grey */
+    --color-accent: #FCD34D;
+    /* Electric Amber */
+    --color-accent-glow: rgba(252, 211, 77, 0.15);
+
+    /* TYPOGRAPHY */
+    --font-heading: 'Space Grotesk', sans-serif;
+    --font-body: 'Inter', sans-serif;
+
+    /* SPACING SCALE */
+    --space-1: 0.25rem;
+    --space-4: 1rem;
+    --space-8: 2rem;
+    --space-16: 4rem;
+}
+
+@theme {
+    /* Extend Tailwind theme with our tokens */
+
+    --color-bg-base: var(--color-bg);
+    --color-text-main: var(--color-text-primary);
+    --color-text-muted: var(--color-text-secondary);
+    --color-accent: var(--color-accent);
+    --color-accent-glow: var(--color-accent-glow);
+
+    --font-display: var(--font-heading);
+    --font-sans: var(--font-body);
+}
+
+/* GLOBAL RESET & BASE STYLES */
+html {
+    background-color: var(--color-bg);
+    color: var(--color-text-primary);
+    font-family: var(--font-body);
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+/* UTILITIES */
+.layout-grid {
+    display: grid;
+    grid-template-columns: 1fr min(65ch, 90%) 1fr;
+}
+
+.layout-grid>* {
+    grid-column: 2;
+}
+
+.full-width {
+    grid-column: 1 / -1;
+}
+
+/* Glassmorphism Utility */
+.glass-card {
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}

@@ -1,0 +1,23 @@
+---
+import { execSync } from 'child_process';
+
+let commitHash = 'UNKNOWN';
+try {
+  commitHash = execSync('git rev-parse --short HEAD').toString().trim();
+} catch (e) {
+  console.warn('Could not retrieve git hash');
+}
+---
+
+<footer class="py-12 border-t border-white/5 mt-20">
+  <div class="layout-grid">
+    <div class="full-width md:col-start-2 md:col-end-3 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-text-muted">
+      <p>&copy; {new Date().getFullYear()} Oliver Thylmann. All rights reserved.</p>
+      
+      <div class="flex gap-6 font-mono text-xs">
+        <span class="text-accent/50" title={`Build: ${commitHash}`}>/// SYSTEM_STATUS: ONLINE [{commitHash}]</span>
+        <span class="text-text-secondary">EST. 1975</span>
+      </div>
+    </div>
+  </div>
+</footer>
