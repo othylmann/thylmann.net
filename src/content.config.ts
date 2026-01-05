@@ -7,7 +7,7 @@ const ventures = defineCollection({
     title: z.string(),
     role: z.string(),
     year: z.string(),
-    link: z.string().url(),
+    link: z.string().url().optional(),
     description: z.string(),
     order: z.number(),
   }),

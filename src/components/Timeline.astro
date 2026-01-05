@@ -20,9 +20,13 @@ const sortedVentures = ventures.sort((a, b) => b.data.order - a.data.order);
         <article class="relative">
           <span class="font-mono text-accent text-sm mb-1 block">{venture.data.year}</span>
           <h3 class="text-2xl font-bold text-text-main group-hover:text-accent transition-colors">
-            <a href={venture.data.link} target="_blank" rel="noopener noreferrer">
-              {venture.data.title}
-            </a>
+            {venture.data.link ? (
+              <a href={venture.data.link} target="_blank" rel="noopener noreferrer">
+                {venture.data.title}
+              </a>
+            ) : (
+              <span>{venture.data.title}</span>
+            )}
           </h3>
           <p class="text-sm text-text-muted mb-4 font-mono">{venture.data.role}</p>
           <p class="text-text-secondary max-w-prose leading-relaxed">
