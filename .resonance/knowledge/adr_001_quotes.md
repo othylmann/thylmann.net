@@ -11,23 +11,19 @@ The user wants to integrate a large collection of quotes (~600 entries) from a M
 3.  **Modern Layout**: Responsive (mobile-first stack, desktop-row/float).
 
 ## Decision
-We will implement a **Build-Time Selection Pattern** for the Quotes:
+We will implement an **Automated Build-Time Selection Pattern** for the Quotes:
 
-1.  **Data Transformation**: A utility function will read `src/data/quotes.md` at build-time.
-2.  **Parsing**: The parser will use simple RegEx to split lines by the last `-` character to separate quoted text from attribution.
-3.  **Selection**: A single random quote will be selected at build-time. This ensures that:
-    - Zero JavaScript is shipped for the quotes list.
-    - The HTML only contains the selected quote.
-    - Each build (or every 24h if automated) updates the "Quote of the Day."
-4.  **Component**: A new `QuoteBox.astro` component will manage the layout using Tailwind CSS for the desktop-float/mobile-stack logic.
+1.  **Build-Time Selection**: The `QuoteBox.astro` component will continue to select one random quote from `src/data/quotes.md` during the build process.
+2.  **Daily Automation**: We will modify the GitHub Actions deployment workflow to include a `schedule` trigger (cron).
+3.  **Frequency**: The site will automatically rebuild and redeploy once every 24 hours (e.g., at midnight).
+4.  **UI Feedback**: The `QuoteBox` will be titled "Quote of the Day" to clarify its frequency to the user.
 
 ## Consequences
 - **Positive**: 
-    - Zero performance impact on the client.
-    - Easy to maintain (user just keeps editing `quotes.md`).
-    - SEO friendly (text is in HTML).
+    - Zero client-side JavaScript.
+    - Zero performance impact.
+    - Guaranteed rotation every 24 hours.
+    - Contextual labeling ("Quote of the Day") adds to the human/curated feel.
 - **Negative**: 
-    - Quote only changes on site rebuild. 
-    - Randomness is tied to build frequency (though sufficient for a personal site).
-- **Risks**:
-    - Parsing errors if a quote contains multiple `-` characters (mitigated by using `lastIndexOf('-')` or similar).
+    - Quote only updates once per day (unless owner pushes code).
+    - GitHub Actions consumes a small amount of minutes daily (well within free tier).
