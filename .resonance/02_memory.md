@@ -19,3 +19,10 @@
 - **Palette**: Deep Charcoal (`#0F1115`) + Electric Amber (`#FCD34D`)
 - **Type**: Space Grotesk (Headings) + Inter (Body)
 - **Patterns**: Subtle glassmorphism, circuit-board timeline
+
+## 2026-01-07 - Technical & Human Research
+- **Subject**: Site Enhancements & Digital Humanization
+- **Strategy**: move towards "Minimalist Architect + Real Human"
+- **Tech**: recommended build-time RSS (Medium) and manual curation (Tech Radar)
+- **Patterns**: Identified Failure CV, Codex Vitae, and /now page as high-leverage humanization tools
+- **Output**: Reports in `knowledge/research_site_enhancements.md` and `knowledge/research_digital_humanization.md`
