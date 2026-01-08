@@ -1,8 +1,10 @@
 ---
 import QuoteBox from "./QuoteBox.astro";
 import { getRandomQuote } from "../utils/quotes";
+import { getLatestEpisode } from "../utils/podcast";
 
 const { text, author } = getRandomQuote();
+const latestEpisode = await getLatestEpisode();
 ---
 
 <section
@@ -22,6 +24,38 @@ const { text, author } = getRandomQuote();
           Serial Entrepreneur. Developer Whisperer. <br />
           Building <span class="text-text-main">meaningful systems</span> since 1999.
         </p>
+
+        {
+          latestEpisode && (
+            <div class="py-4">
+              <div class="p-4 rounded-2xl bg-accent/5 border border-accent/10 backdrop-blur-sm">
+                <div class="flex items-center gap-3 mb-3">
+                  <span class="text-xl">🎙️</span>
+                  <div>
+                    <p class="text-xs font-mono text-accent uppercase tracking-wider">
+                      Latest Podcast
+                    </p>
+                    <a
+                      href={latestEpisode.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="text-sm font-bold text-text-main hover:text-accent transition-colors line-clamp-1"
+                    >
+                      {latestEpisode.title}
+                    </a>
+                  </div>
+                </div>
+                <audio
+                  controls
+                  class="w-full h-8 opacity-80 hover:opacity-100 transition-opacity"
+                >
+                  <source src={latestEpisode.audioUrl} type="audio/mpeg" />
+                  Your browser does not support the audio element.
+                </audio>
+              </div>
+            </div>
+          )
+        }
         <div class="flex flex-wrap gap-4 pt-4">
           <a
             href="https://giantswarm.io"
