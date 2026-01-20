@@ -6,6 +6,7 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
+    "test": "vitest",
     "astro": "astro"
   },
   "dependencies": {
@@ -14,5 +15,8 @@
     "astro": "^5.16.6",
     "rss-parser": "^3.13.0",
     "tailwindcss": "^4.1.18"
+  },
+  "devDependencies": {
+    "vitest": "^4.0.16"
   }
 }
