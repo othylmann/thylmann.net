@@ -1,6 +1,12 @@
+export interface VinylArtist {
+    id: number;
+    name: string;
+    url: string;
+}
+
 export interface VinylItem {
     id: number;
-    artist: string;
+    artists: VinylArtist[];
     title: string;
     coverImage: string;
     thumb: string;
@@ -9,28 +15,34 @@ export interface VinylItem {
     genres: string[];
     styles: string[];
     notes: string;
-    rating: number; // Community average
+    communityRating: number;
+    personalRating: number;
+    albumUrl: string;
 }
 
-const DISCOGS_API_BASE = 'https://api.discogs.com';
+const DISCOGS_API_BASE = "https://api.discogs.com";
 
 /**
  * Fetches the user's vinyl collection from Discogs.
  * Requires DISCOGS_TOKEN in environment variables for high-res images and ratings.
  */
-export async function getVinylCollection(username: string): Promise<VinylItem[]> {
+export async function getVinylCollection(
+    username: string,
+): Promise<VinylItem[]> {
     const token = import.meta.env.DISCOGS_TOKEN || process.env.DISCOGS_TOKEN;
 
     if (!token) {
-        console.warn('DISCOGS_TOKEN not found. Images and ratings might be restricted.');
+        console.warn(
+            "DISCOGS_TOKEN not found. Images and ratings might be restricted.",
+        );
     }
 
     const headers: HeadersInit = {
-        'User-Agent': 'TidalTransitVinylFetcher/1.0 +https://thylmann.net',
+        "User-Agent": "TidalTransitVinylFetcher/1.0 +https://thylmann.net",
     };
 
     if (token) {
-        headers['Authorization'] = `Discogs token=${token}`;
+        headers["Authorization"] = `Discogs token=${token}`;
     }
 
     try {
@@ -39,7 +51,9 @@ export async function getVinylCollection(username: string): Promise<VinylItem[]>
         const response = await fetch(collectionUrl, { headers });
 
         if (!response.ok) {
-            throw new Error(`Discogs API error: ${response.status} ${response.statusText}`);
+            throw new Error(
+                `Discogs API error: ${response.status} ${response.statusText}`,
+            );
         }
 
         const data = await response.json();
@@ -59,31 +73,46 @@ export async function getVinylCollection(username: string): Promise<VinylItem[]>
                     const releaseRes = await fetch(releaseUrl, { headers });
                     if (releaseRes.ok) {
                         const releaseData = await releaseRes.json();
-                        communityRating = releaseData.community?.rating?.average || 0;
+                        communityRating =
+                            releaseData.community?.rating?.average || 0;
                     }
                 } catch (e) {
-                    console.error(`Failed to fetch rating for release ${info.id}:`, e);
+                    console.error(
+                        `Failed to fetch rating for release ${info.id}:`,
+                        e,
+                    );
                 }
 
                 return {
                     id: info.id,
-                    artist: info.artists.map((a: any) => a.name).join(', '),
+                    artists: info.artists.map((a: any) => ({
+                        id: a.id,
+                        name: a.name,
+                        url: `https://www.discogs.com/artist/${a.id}`,
+                    })),
                     title: info.title,
                     coverImage: info.cover_image,
                     thumb: info.thumb,
-                    format: info.formats.map((f: any) => `${f.name}${f.descriptions ? ` (${f.descriptions.join(', ')})` : ''}`).join(', '),
+                    format: info.formats
+                        .map(
+                            (f: any) =>
+                                `${f.name}${f.descriptions ? ` (${f.descriptions.join(", ")})` : ""}`,
+                        )
+                        .join(", "),
                     year: info.year,
                     genres: info.genres || [],
                     styles: info.styles || [],
-                    notes: item.notes?.map((n: any) => n.value).join(' ') || '',
-                    rating: communityRating,
+                    notes: item.notes?.map((n: any) => n.value).join(" ") || "",
+                    communityRating,
+                    personalRating: item.rating || 0,
+                    albumUrl: `https://www.discogs.com/release/${info.id}`,
                 };
-            })
+            }),
         );
 
         return vinylItems;
     } catch (error) {
-        console.error('Error fetching vinyl collection:', error);
+        console.error("Error fetching vinyl collection:", error);
         return [];
     }
 }

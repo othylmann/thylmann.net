@@ -7,15 +7,16 @@ interface Props {
 }
 
 const {
-    artist,
+    artists,
     title,
     coverImage,
-    format,
     year,
     genres,
     styles,
     notes,
-    rating,
+    communityRating,
+    personalRating,
+    albumUrl,
 } = item;
 ---
 
@@ -23,46 +24,65 @@ const {
     class="vinyl-card group relative flex flex-col bg-white/5 border border-white/10 rounded-lg overflow-hidden transition-all hover:border-amber-400/50 hover:bg-white/10"
 >
     <!-- Aspect ratio container for the cover -->
-    <div
-        class="aspect-square w-full overflow-hidden bg-zinc-900 border-b border-white/10"
+    <a
+        href={albumUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="aspect-square w-full overflow-hidden bg-zinc-900 border-b border-white/10 block"
     >
         <img
             src={coverImage}
-            alt={`${artist} - ${title}`}
+            alt={`${artists.map((a: any) => a.name).join(", ")} - ${title}`}
             class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
             loading="lazy"
         />
-    </div>
+    </a>
 
     <div class="p-4 flex-grow flex flex-col gap-2">
         <div class="flex justify-between items-start gap-2">
             <h3
                 class="font-space font-bold text-lg leading-tight text-white group-hover:text-amber-400 transition-colors"
             >
-                {title}
+                <a href={albumUrl} target="_blank" rel="noopener noreferrer">
+                    {title}
+                </a>
             </h3>
-            {
-                rating > 0 && (
-                    <div class="flex items-center gap-1 text-amber-400 font-mono text-sm shrink-0">
-                        <span>★</span>
-                        <span>{rating.toFixed(1)}</span>
-                    </div>
-                )
-            }
+            <div
+                class="flex items-center gap-1 text-amber-400 font-mono text-sm shrink-0 cursor-help"
+                title={`My Rating: ${personalRating || "N/A"} / Avg. User Rating: ${communityRating.toFixed(1)}`}
+            >
+                <span>★</span>
+                <span>
+                    {personalRating || "-"}<span class="text-zinc-500 mx-0.5"
+                        >/</span
+                    >{communityRating.toFixed(1)}
+                </span>
+            </div>
         </div>
 
-        <p class="text-zinc-400 font-medium">{artist}</p>
+        <p class="text-zinc-400 font-medium text-sm">
+            {
+                artists.map((artist: any, index: number) => (
+                    <>
+                        <a
+                            href={artist.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="hover:text-white transition-colors"
+                        >
+                            {artist.name}
+                        </a>
+                        {index < artists.length - 1 && ", "}
+                    </>
+                ))
+            }
+        </p>
 
         <div class="flex flex-wrap gap-1 mt-auto pt-2">
             <span
                 class="text-xs font-mono px-2 py-0.5 bg-white/10 text-zinc-300 rounded uppercase"
             >
                 {year > 0 ? `${year}` : "N/A"}
-            </span>
-            <span
-                class="text-xs font-mono px-2 py-0.5 bg-amber-400/10 text-amber-500 rounded uppercase"
-            >
-                {format.includes("LP") ? "LP" : "Vinyl"}
             </span>
         </div>
 
