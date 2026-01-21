@@ -1,0 +1,90 @@
+---
+const { item } = Astro.props;
+import type { VinylItem } from "../utils/discogs";
+
+interface Props {
+    item: VinylItem;
+}
+
+const {
+    artist,
+    title,
+    coverImage,
+    format,
+    year,
+    genres,
+    styles,
+    notes,
+    rating,
+} = item;
+---
+
+<div
+    class="vinyl-card group relative flex flex-col bg-white/5 border border-white/10 rounded-lg overflow-hidden transition-all hover:border-amber-400/50 hover:bg-white/10"
+>
+    <!-- Aspect ratio container for the cover -->
+    <div
+        class="aspect-square w-full overflow-hidden bg-zinc-900 border-b border-white/10"
+    >
+        <img
+            src={coverImage}
+            alt={`${artist} - ${title}`}
+            class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+            loading="lazy"
+        />
+    </div>
+
+    <div class="p-4 flex-grow flex flex-col gap-2">
+        <div class="flex justify-between items-start gap-2">
+            <h3
+                class="font-space font-bold text-lg leading-tight text-white group-hover:text-amber-400 transition-colors"
+            >
+                {title}
+            </h3>
+            {
+                rating > 0 && (
+                    <div class="flex items-center gap-1 text-amber-400 font-mono text-sm shrink-0">
+                        <span>★</span>
+                        <span>{rating.toFixed(1)}</span>
+                    </div>
+                )
+            }
+        </div>
+
+        <p class="text-zinc-400 font-medium">{artist}</p>
+
+        <div class="flex flex-wrap gap-1 mt-auto pt-2">
+            <span
+                class="text-xs font-mono px-2 py-0.5 bg-white/10 text-zinc-300 rounded uppercase"
+            >
+                {year > 0 ? `${year}` : "N/A"}
+            </span>
+            <span
+                class="text-xs font-mono px-2 py-0.5 bg-amber-400/10 text-amber-500 rounded uppercase"
+            >
+                {format.includes("LP") ? "LP" : "Vinyl"}
+            </span>
+        </div>
+
+        {
+            notes && (
+                <div class="mt-2 text-xs text-zinc-500 italic line-clamp-2">
+                    {notes}
+                </div>
+            )
+        }
+    </div>
+
+    <!-- Decorative technical element -->
+    <div
+        class="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity"
+    >
+        <div class="w-1 h-1 bg-amber-400 rounded-full animate-pulse"></div>
+    </div>
+</div>
+
+<style>
+    .vinyl-card {
+        backdrop-filter: blur(8px);
+    }
+</style>

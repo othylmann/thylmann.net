@@ -1,0 +1,76 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import VinylCard from "../components/VinylCard.astro";
+import Footer from "../components/Footer.astro";
+import { getVinylCollection } from "../utils/discogs";
+
+// Use environment variable or default
+const DISCOGS_USERNAME = import.meta.env.DISCOGS_USERNAME || "othylmann";
+
+// Fetch collection at build time
+const collection = await getVinylCollection(DISCOGS_USERNAME);
+
+// Minimalist Architect styling
+const title = "Vinyl Collection | Oliver Thylmann";
+---
+
+<BaseLayout title={title}>
+    <div class="layout-grid pt-20 pb-20">
+        <div class="full-width md:col-start-2 md:col-end-3 px-6">
+            <header class="mb-16">
+                <a
+                    href="/"
+                    class="text-amber-400 font-mono text-sm hover:underline mb-4 inline-block"
+                    >← Back Home</a
+                >
+                <h1
+                    class="font-space font-bold text-5xl md:text-7xl text-white tracking-tighter mb-4"
+                >
+                    Vinyl <span class="text-zinc-500">Collection</span>
+                </h1>
+                <p class="text-zinc-400 font-mono text-lg max-w-2xl">
+                    A curated selection of my physical records, managed via
+                    Discogs and synched daily. I started with this 2026, so bear
+                    with me please while I get into the groove.
+                </p>
+            </header>
+
+            {
+                collection.length > 0 ? (
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                        {collection.map((item) => (
+                            <VinylCard item={item} />
+                        ))}
+                    </div>
+                ) : (
+                    <div class="py-20 text-center border border-dashed border-white/10 rounded-lg">
+                        <p class="text-zinc-500 font-mono">
+                            No records found in collection '{DISCOGS_USERNAME}'.
+                        </p>
+                        <p class="text-zinc-600 text-sm mt-2">
+                            Check your credentials and public visibility on
+                            Discogs.
+                        </p>
+                    </div>
+                )
+            }
+
+            <!-- Technical Meta Info -->
+            <div
+                class="mt-20 pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between gap-4"
+            >
+                <div class="text-xs font-mono text-zinc-600">
+                    Source: api.discogs.com
+                </div>
+                <div class="text-xs font-mono text-zinc-600">
+                    Build Time: {new Date().toISOString()}
+                </div>
+            </div>
+        </div>
+    </div>
+    <Footer />
+</BaseLayout>
+
+<style>
+    /* Ensuring consistent spacing with index page */
+</style>
