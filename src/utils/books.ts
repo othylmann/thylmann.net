@@ -22,6 +22,7 @@ const parser = new Parser({
             ['book_description', 'description'],
             ['user_read_at', 'userReadAt'],
             ['user_shelves', 'shelves'],
+            ['user_review', 'userReview'],
         ],
     },
 });
@@ -42,7 +43,7 @@ export async function getReadingList(): Promise<Book[]> {
             link: item.link,
             readDate: item.userReadAt || item.pubDate || '',
             shelves: item.shelves ? item.shelves.split(',').map((s: string) => s.trim()).filter((s: string) => s !== 'read') : [],
-            review: item.description,
+            review: (item.userReview && item.userReview.trim() !== '') ? item.userReview : undefined,
         }));
     } catch (error) {
         console.error('Error fetching Goodreads RSS:', error);
