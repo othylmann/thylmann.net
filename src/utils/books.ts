@@ -8,6 +8,7 @@ export interface Book {
     coverImage: string;
     link: string;
     readDate: string;
+    shelves: string[];
     review?: string;
 }
 
@@ -20,6 +21,7 @@ const parser = new Parser({
             ['book_medium_image_url', 'coverImage'],
             ['book_description', 'description'],
             ['user_read_at', 'userReadAt'],
+            ['user_shelves', 'shelves'],
         ],
     },
 });
@@ -39,6 +41,7 @@ export async function getReadingList(): Promise<Book[]> {
             coverImage: item.coverImage || '',
             link: item.link,
             readDate: item.userReadAt || item.pubDate || '',
+            shelves: item.shelves ? item.shelves.split(',').map((s: string) => s.trim()).filter((s: string) => s !== 'read') : [],
             review: item.description,
         }));
     } catch (error) {
