@@ -102,7 +102,7 @@ export async function getVinylCollection(
                     year: info.year,
                     genres: info.genres || [],
                     styles: info.styles || [],
-                    notes: item.notes?.find((n: any) => n.field_id === 2)?.value || "",
+                    notes: item.notes?.find((n: any) => n.field_id === 3)?.value || "",
                     communityRating,
                     personalRating: item.rating || 0,
                     albumUrl: `https://www.discogs.com/release/${info.id}`,
