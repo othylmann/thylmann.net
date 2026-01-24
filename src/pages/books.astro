@@ -1,0 +1,125 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Footer from "../components/Footer.astro";
+import { getReadingList } from "../utils/books";
+
+// Fetch reading list at build time
+const books = await getReadingList();
+
+// Minimalist Architect styling
+const title = "Reading List | Oliver Thylmann";
+---
+
+<BaseLayout title={title}>
+    <div class="layout-grid pt-20 pb-20">
+        <div class="full-width md:col-start-2 md:col-end-3 px-6">
+            <header class="mb-12">
+                <a
+                    href="/"
+                    class="text-accent font-mono text-sm hover:underline mb-4 inline-block"
+                    >← Back Home</a
+                >
+                <h1
+                    class="font-space font-bold text-5xl md:text-7xl text-text-main tracking-tighter mb-4"
+                >
+                    Reading <span class="text-text-muted">List</span>
+                </h1>
+                <p class="text-text-secondary font-mono text-lg max-w-2xl">
+                    A curated selection of books I've read, tracked via
+                    Goodreads. These are the ideas that shape my strategy and
+                    philosophy.
+                </p>
+            </header>
+
+            {
+                books.length > 0 ? (
+                    <div
+                        id="books-grid"
+                        class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8"
+                    >
+                        {books.map((book) => (
+                            <div class="book-card group flex flex-col h-full glass-card border border-white/10 rounded-xl overflow-hidden transition-all hover:border-accent/40">
+                                <a
+                                    href={book.link}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    class="aspect-[2/3] w-full bg-zinc-900 border-b border-white/5 overflow-hidden block"
+                                >
+                                    <img
+                                        src={book.coverImage}
+                                        alt={book.title}
+                                        class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                                        loading="lazy"
+                                    />
+                                </a>
+                                <div class="p-5 flex-grow flex flex-col">
+                                    <div class="mb-3">
+                                        <h3 class="font-space font-bold text-lg leading-tight text-text-main line-clamp-2 mb-1">
+                                            {book.title}
+                                        </h3>
+                                        <p class="text-text-muted text-sm font-medium">
+                                            {book.author}
+                                        </p>
+                                    </div>
+
+                                    <div class="mt-auto flex justify-between items-center pt-4 border-t border-white/5">
+                                        <div class="flex items-center gap-1 text-accent font-mono text-xs">
+                                            {Array.from({ length: 5 }).map(
+                                                (_, i) => (
+                                                    <span
+                                                        class={
+                                                            i < book.rating
+                                                                ? "text-accent"
+                                                                : "text-white/10"
+                                                        }
+                                                    >
+                                                        ★
+                                                    </span>
+                                                ),
+                                            )}
+                                        </div>
+                                        <span class="text-[10px] font-mono text-text-muted uppercase tracking-widest">
+                                            {book.readDate
+                                                ? new Date(
+                                                      book.readDate,
+                                                  ).getFullYear()
+                                                : "N/A"}
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                ) : (
+                    <div class="py-20 text-center border border-dashed border-white/10 rounded-lg">
+                        <p class="text-text-muted font-mono">
+                            No books found in the collection.
+                        </p>
+                        <p class="text-text-secondary text-sm mt-2">
+                            The library is currently empty. Check back soon.
+                        </p>
+                    </div>
+                )
+            }
+
+            <!-- Technical Meta Info -->
+            <div
+                class="mt-20 pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between gap-4"
+            >
+                <div class="text-xs font-mono text-text-muted">
+                    Source: goodreads.com
+                </div>
+                <div class="text-xs font-mono text-text-muted">
+                    Last Synced: {new Date().toISOString().split("T")[0]}
+                </div>
+            </div>
+        </div>
+    </div>
+    <Footer />
+</BaseLayout>
+
+<style>
+    .book-card {
+        backdrop-filter: blur(8px);
+    }
+</style>
