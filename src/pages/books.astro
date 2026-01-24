@@ -4,7 +4,7 @@ import Footer from "../components/Footer.astro";
 import { getReadingList } from "../utils/books";
 
 // Fetch reading list at build time
-const books = await getReadingList();
+const books = (await getReadingList()).sort((a, b) => b.rating - a.rating);
 
 // Minimalist Architect styling
 const title = "Reading List | Oliver Thylmann";
