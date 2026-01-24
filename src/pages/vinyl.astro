@@ -10,6 +10,11 @@ const DISCOGS_USERNAME = import.meta.env.DISCOGS_USERNAME || "othylmann";
 // Fetch collection at build time
 const collection = await getVinylCollection(DISCOGS_USERNAME);
 
+// Extract unique genres
+const allGenres = [
+    ...new Set(collection.flatMap((item) => item.genres)),
+].sort();
+
 // Minimalist Architect styling
 const title = "Vinyl Collection | Oliver Thylmann";
 ---
@@ -17,7 +22,7 @@ const title = "Vinyl Collection | Oliver Thylmann";
 <BaseLayout title={title}>
     <div class="layout-grid pt-20 pb-20">
         <div class="full-width md:col-start-2 md:col-end-3 px-6">
-            <header class="mb-16">
+            <header class="mb-12">
                 <a
                     href="/"
                     class="text-amber-400 font-mono text-sm hover:underline mb-4 inline-block"
@@ -30,16 +35,48 @@ const title = "Vinyl Collection | Oliver Thylmann";
                 </h1>
                 <p class="text-zinc-400 font-mono text-lg max-w-2xl">
                     A curated selection of my physical records, managed via
-                    Discogs and synched daily. I started with this 2026, so bear
+                    Discogs and synched daily. I started this in 2026, so bear
                     with me please while I get into the groove.
                 </p>
             </header>
 
+            <!-- Genre Filter -->
+            <nav
+                class="mb-12 border-b border-white/10 pb-6 overflow-x-auto no-scrollbar"
+            >
+                <div class="flex gap-4 min-w-max pb-2">
+                    <button
+                        data-genre="all"
+                        class="filter-btn active text-sm font-mono px-4 py-2 rounded-full border border-white/10 hover:border-amber-400/50 transition-all cursor-pointer"
+                    >
+                        All
+                    </button>
+                    {
+                        allGenres.map((genre) => (
+                            <button
+                                data-genre={genre}
+                                class="filter-btn text-sm font-mono px-4 py-2 rounded-full border border-white/10 hover:border-amber-400/50 transition-all cursor-pointer"
+                            >
+                                {genre}
+                            </button>
+                        ))
+                    }
+                </div>
+            </nav>
+
             {
                 collection.length > 0 ? (
-                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                    <div
+                        id="vinyl-grid"
+                        class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
+                    >
                         {collection.map((item) => (
-                            <VinylCard item={item} />
+                            <div
+                                class="vinyl-item-wrapper"
+                                data-genres={item.genres.join(",")}
+                            >
+                                <VinylCard item={item} />
+                            </div>
                         ))}
                     </div>
                 ) : (
@@ -71,6 +108,80 @@ const title = "Vinyl Collection | Oliver Thylmann";
     <Footer />
 </BaseLayout>
 
+<script>
+    function updateFilters() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const activeGenre = urlParams.get("genre") || "all";
+
+        // Update button states
+        const buttons = document.querySelectorAll(".filter-btn");
+        buttons.forEach((btn) => {
+            if (btn instanceof HTMLElement) {
+                if (btn.dataset.genre === activeGenre) {
+                    btn.classList.add(
+                        "bg-amber-400",
+                        "text-black",
+                        "border-amber-400",
+                    );
+                    btn.classList.remove("text-zinc-400", "border-white/10");
+                } else {
+                    btn.classList.remove(
+                        "bg-amber-400",
+                        "text-black",
+                        "border-amber-400",
+                    );
+                    btn.classList.add("text-zinc-400", "border-white/10");
+                }
+            }
+        });
+
+        // Update items
+        const items = document.querySelectorAll(".vinyl-item-wrapper");
+        items.forEach((item) => {
+            if (item instanceof HTMLElement) {
+                const genres = item.dataset.genres?.split(",") || [];
+                if (activeGenre === "all" || genres.includes(activeGenre)) {
+                    item.style.display = "block";
+                } else {
+                    item.style.display = "none";
+                }
+            }
+        });
+    }
+
+    // Handle button clicks
+    document.querySelectorAll(".filter-btn").forEach((btn) => {
+        btn.addEventListener("click", () => {
+            if (btn instanceof HTMLElement) {
+                const genre = btn.dataset.genre;
+                const url = new URL(window.location.href);
+                if (genre === "all") {
+                    url.searchParams.delete("genre");
+                } else {
+                    url.searchParams.set("genre", genre || "");
+                }
+                window.history.pushState({}, "", url);
+                updateFilters();
+            }
+        });
+    });
+
+    // Listen for back/forward
+    window.addEventListener("popstate", updateFilters);
+
+    // Initial check
+    updateFilters();
+</script>
+
 <style>
-    /* Ensuring consistent spacing with index page */
+    .no-scrollbar::-webkit-scrollbar {
+        display: none;
+    }
+    .no-scrollbar {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+    .filter-btn {
+        white-space: nowrap;
+    }
 </style>
