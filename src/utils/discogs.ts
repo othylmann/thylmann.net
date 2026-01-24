@@ -102,7 +102,13 @@ export async function getVinylCollection(
                     year: info.year,
                     genres: info.genres || [],
                     styles: info.styles || [],
-                    notes: item.notes?.map((n: any) => n.value).join(" ") || "",
+                    // Notes in Discogs collection releases are an array of { field_id: number, value: string }
+                    // Common fields: 1 = Notes, 2 = Media Condition, 3 = Sleeve Condition
+                    // We target field_id 1 (Notes) specifically if it exists, otherwise join all
+                    notes:
+                        item.notes?.find((n: any) => n.field_id === 1)?.value ||
+                        item.notes?.map((n: any) => n.value).join(" ") ||
+                        "",
                     communityRating,
                     personalRating: item.rating || 0,
                     albumUrl: `https://www.discogs.com/release/${info.id}`,
