@@ -35,10 +35,10 @@ const title = "Reading List | Oliver Thylmann";
                 books.length > 0 ? (
                     <div
                         id="books-grid"
-                        class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 xl:grid-cols-6 gap-6"
+                        class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 xl:grid-cols-10 2xl:grid-cols-12 gap-3"
                     >
                         {books.map((book) => (
-                            <div class="book-card group flex flex-col h-full glass-card border border-white/10 rounded-lg overflow-hidden transition-all hover:border-accent/40">
+                            <div class="book-card group flex flex-col h-full glass-card border border-white/5 rounded overflow-hidden transition-all hover:border-accent/40">
                                 <a
                                     href={book.link}
                                     target="_blank"
@@ -52,25 +52,25 @@ const title = "Reading List | Oliver Thylmann";
                                         loading="lazy"
                                     />
                                 </a>
-                                <div class="p-3 flex-grow flex flex-col">
-                                    <div class="mb-2">
-                                        <h3 class="font-space font-bold text-sm leading-tight text-text-main line-clamp-2 mb-0.5">
+                                <div class="p-1.5 flex-grow flex flex-col">
+                                    <div class="mb-1">
+                                        <h3 class="font-space font-bold text-[9px] leading-tight text-text-main line-clamp-1 mb-0">
                                             {book.title}
                                         </h3>
-                                        <p class="text-text-muted text-[10px] font-medium line-clamp-1">
+                                        <p class="text-text-muted text-[8px] font-medium line-clamp-1 opacity-70">
                                             {book.author}
                                         </p>
                                     </div>
 
-                                    <div class="mt-auto flex justify-between items-center pt-2 border-t border-white/5">
-                                        <div class="flex items-center gap-0.5 text-accent font-mono text-[10px]">
+                                    <div class="mt-auto flex justify-between items-center pt-1 border-t border-white/5">
+                                        <div class="flex items-center gap-0 text-accent font-mono text-[8px]">
                                             {Array.from({ length: 5 }).map(
                                                 (_, i) => (
                                                     <span
                                                         class={
                                                             i < book.rating
                                                                 ? "text-accent"
-                                                                : "text-white/10"
+                                                                : "text-white/5"
                                                         }
                                                     >
                                                         ★
@@ -78,12 +78,12 @@ const title = "Reading List | Oliver Thylmann";
                                                 ),
                                             )}
                                         </div>
-                                        <span class="text-[9px] font-mono text-text-muted uppercase tracking-widest shrink-0">
+                                        <span class="text-[7px] font-mono text-text-muted uppercase tracking-tighter shrink-0 opacity-50">
                                             {book.readDate
                                                 ? new Date(
                                                       book.readDate,
                                                   ).getFullYear()
-                                                : "N/A"}
+                                                : ""}
                                         </span>
                                     </div>
                                 </div>
