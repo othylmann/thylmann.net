@@ -11,15 +11,15 @@
     /* Deep Charcoal */
     --color-text-primary: #E2E8F0;
     /* Off-White */
-    --color-text-secondary: #94A3B8;
+    --color-text-secondary: #A7B1C2;
     /* Slate Grey */
     --color-accent: #FCD34D;
     /* Electric Amber */
     --color-accent-glow: rgba(252, 211, 77, 0.15);
 
     /* TYPOGRAPHY */
-    --font-heading: 'Space Grotesk', sans-serif;
-    --font-body: 'Inter', sans-serif;
+    --font-heading: 'Space Grotesk', system-ui, sans-serif;
+    --font-body: 'Inter Variable', 'Inter', system-ui, sans-serif;
 
     /* SPACING SCALE */
     --space-1: 0.25rem;
@@ -39,8 +39,11 @@
 
     --font-display: var(--font-heading);
     --font-sans: var(--font-body);
+    --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+    --color-brick: #C8553D;
 }
 
+@layer base {
 /* GLOBAL RESET & BASE STYLES */
 html {
     background-color: var(--color-bg);
@@ -68,18 +71,22 @@ a {
     transition: color 0.2s ease;
 }
 
+}
+
 /* UTILITIES */
 .layout-grid {
-    display: grid;
-    grid-template-columns: 1fr min(65ch, 90%) 1fr;
+    width: 100%;
+    max-width: 76rem;
+    margin-inline: auto;
 }
 
-.layout-grid>* {
-    grid-column: 2;
-}
+/* kept for backwards compatibility with existing markup */
+.full-width {}
 
-.full-width {
-    grid-column: 1 / -1;
+@media (min-width: 768px) {
+    html {
+        font-size: 17px;
+    }
 }
 
 /* Glassmorphism Utility */

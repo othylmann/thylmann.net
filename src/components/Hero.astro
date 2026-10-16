@@ -5,76 +5,101 @@ import { getLatestEpisode } from "../utils/podcast";
 
 const { text, author } = getRandomQuote();
 const latestEpisode = await getLatestEpisode();
+
+const roles = [
+  "Co-Founder & Co-CEO Giant Swarm",
+  "NeoNephos Governing Board",
+  "Nerd Show Co-Host",
+  "Serial Entrepreneur",
+  "Agentic & Cloud Native",
+];
 ---
 
-<section
-  class="min-h-[70vh] flex flex-col justify-center animate-fade-in py-20"
->
-  <div
-    class="flex flex-col md:flex-row md:items-start md:justify-between gap-12"
-  >
+<section class="pt-8 pb-16 md:pt-16 md:pb-24 animate-fade-in overflow-x-clip lg:overflow-visible">
+  <div class="grid gap-14 lg:grid-cols-[1.15fr_0.85fr] lg:gap-16 items-center">
     <div>
-      <h1 class="text-6xl md:text-8xl font-bold leading-[0.9] tracking-tight">
-        Oliver <br />
-        Thylmann<span class="text-accent">.</span>
+      <p class="font-mono text-sm text-accent mb-6">Hi, I'm</p>
+      <h1 class="text-6xl sm:text-7xl md:text-8xl font-bold leading-[0.9] tracking-tight">
+        Oliver<br />Thylmann<span class="text-accent">.</span>
       </h1>
 
-      <div class="mt-8 space-y-4 max-w-2xl">
-        <p class="text-xl md:text-2xl text-text-muted">
-          Serial Entrepreneur. Developer Whisperer. <br />
-          Building <span class="text-text-main">meaningful systems</span> since 1999.
-        </p>
-
+      <ul class="mt-8 flex flex-wrap gap-2" aria-label="Roles">
         {
-          latestEpisode && (
-            <div class="py-4">
-              <div class="p-4 rounded-2xl bg-accent/5 border border-accent/10 backdrop-blur-sm">
-                <div class="flex items-center gap-3 mb-3">
-                  <span class="text-xl">🎙️</span>
-                  <div>
-                    <p class="text-xs font-mono text-accent uppercase tracking-wider">
-                      Latest Podcast
-                    </p>
-                    <a
-                      href={latestEpisode.link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      class="text-sm font-bold text-text-main hover:text-accent transition-colors line-clamp-1"
-                    >
-                      {latestEpisode.title}
-                    </a>
-                  </div>
-                </div>
-                <audio
-                  controls
-                  class="w-full h-8 opacity-80 hover:opacity-100 transition-opacity"
+          roles.map((r, i) => (
+            <li
+              class:list={[
+                "px-3.5 py-1.5 rounded-full text-sm border",
+                i === 0
+                  ? "bg-accent text-bg-base border-accent font-medium"
+                  : "border-white/15 text-text-main/90",
+              ]}
+            >
+              {r}
+            </li>
+          ))
+        }
+      </ul>
+
+      <p class="mt-8 text-xl md:text-2xl leading-snug text-text-muted max-w-xl">
+        Building companies, platforms and communities in Cologne since 1999.
+        I care about <span class="text-text-main">people, open source</span> and
+        making complex tech feel simple.
+      </p>
+
+      <div class="flex flex-wrap gap-3 pt-8">
+        <a
+          href="/about/"
+          class="px-6 py-3 rounded-full bg-accent text-bg-base font-medium hover:brightness-110 transition"
+        >
+          About me &rarr;
+        </a>
+        <a
+          href="https://giantswarm.io"
+          class="px-6 py-3 border border-white/15 rounded-full text-text-main hover:border-accent hover:text-accent transition-colors"
+        >
+          Giant Swarm
+        </a>
+      </div>
+
+      {
+        latestEpisode && (
+          <div class="mt-10 max-w-xl p-4 rounded-2xl bg-white/[0.04] border border-white/10">
+            <div class="flex items-center gap-3 mb-3">
+              <span class="text-xl" aria-hidden="true">🎙️</span>
+              <div class="min-w-0">
+                <p class="text-xs font-mono text-accent uppercase tracking-wider">
+                  Latest Nerd Show episode
+                </p>
+                <a
+                  href={latestEpisode.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="font-semibold text-text-main hover:text-accent transition-colors line-clamp-1"
                 >
-                  <source src={latestEpisode.audioUrl} type="audio/mpeg" />
-                  Your browser does not support the audio element.
-                </audio>
+                  {latestEpisode.title}
+                </a>
               </div>
             </div>
-          )
-        }
-        <div class="flex flex-wrap gap-4 pt-4">
-          <a
-            href="https://giantswarm.io"
-            class="px-6 py-3 border border-accent/20 rounded-full text-accent hover:bg-accent/10 transition-colors"
-          >
-            Current: Giant Swarm
-          </a>
-          <a
-            href="/about/"
-            class="px-6 py-3 text-text-muted hover:text-text-main transition-colors"
-          >
-            About me &rarr;
-          </a>
-        </div>
-      </div>
+            <audio controls preload="none" class="w-full h-9 opacity-80 hover:opacity-100 transition-opacity">
+              <source src={latestEpisode.audioUrl} type="audio/mpeg" />
+            </audio>
+          </div>
+        )
+      }
     </div>
 
-    <div class="md:mt-4 self-start">
-      <QuoteBox text={text} author={author} />
+    <div class="relative mx-auto w-full max-w-sm lg:max-w-none pb-16 lg:pb-10">
+      <div class="absolute -inset-3 rounded-[2rem] bg-brick/30 rotate-3 blur-[1px]" aria-hidden="true"></div>
+      <img
+        src="/images/oliver-thylmann-portrait-1080x1350.jpg"
+        alt="Oliver Thylmann in front of a red brick wall"
+        width="1080"
+        height="1350"
+        class="relative w-full aspect-[4/5] object-cover rounded-[1.75rem] shadow-2xl shadow-black/50"
+      />
+      <div class="absolute -bottom-2 left-4 right-4 sm:-left-8 sm:right-auto lg:-left-12">
+        <QuoteBox text={text} author={author} />
+      </div>
     </div>
   </div>
 </section>
@@ -83,7 +108,7 @@ const latestEpisode = await getLatestEpisode();
   @keyframes fadeIn {
     from {
       opacity: 0;
-      transform: translateY(20px);
+      transform: translateY(16px);
     }
     to {
       opacity: 1;
@@ -91,6 +116,11 @@ const latestEpisode = await getLatestEpisode();
     }
   }
   .animate-fade-in {
-    animation: fadeIn 0.8s ease-out forwards;
+    animation: fadeIn 0.7s ease-out both;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .animate-fade-in {
+      animation: none;
+    }
   }
 </style>

@@ -11,8 +11,8 @@ const ventures = await getCollection('ventures');
 const sortedVentures = ventures.sort((a, b) => b.data.order - a.data.order);
 ---
 
-<section id="ventures" class="py-20">
-  <h2 class="text-3xl font-bold mb-16 text-text-main flex items-center gap-4">
+<section id="ventures" class="py-16">
+  <h2 class="text-3xl md:text-4xl font-bold mb-12 text-text-main flex items-center gap-4">
     <span class="text-accent text-sm font-mono">{index}</span>
     {title}
   </h2>
@@ -24,7 +24,7 @@ const sortedVentures = ventures.sort((a, b) => b.data.order - a.data.order);
         <div class="absolute -left-[5px] top-2 w-[9px] h-[9px] rounded-full bg-bg-base border border-text-muted group-hover:border-accent group-hover:bg-accent transition-colors duration-300"></div>
         
         <article class="relative">
-          <span class="font-mono text-accent text-sm mb-1 block">{venture.data.year}</span>
+          <span class="font-mono text-text-muted text-sm mb-1 block">{venture.data.year}</span>
           <h3 class="text-2xl font-bold text-text-main group-hover:text-accent transition-colors">
             {venture.data.link ? (
               <a href={venture.data.link} target="_blank" rel="noopener noreferrer">
@@ -34,8 +34,8 @@ const sortedVentures = ventures.sort((a, b) => b.data.order - a.data.order);
               <span>{venture.data.title}</span>
             )}
           </h3>
-          <p class="text-sm text-text-muted mb-4 font-mono">{venture.data.role}</p>
-          <p class="text-text-secondary max-w-prose leading-relaxed">
+          <p class="text-sm text-accent/80 mb-3 font-mono">{venture.data.role}</p>
+          <p class="text-text-muted text-lg max-w-prose leading-relaxed">
             {venture.data.description}
           </p>
         </article>

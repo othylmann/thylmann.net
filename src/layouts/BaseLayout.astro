@@ -1,4 +1,8 @@
 ---
+import "@fontsource-variable/inter";
+import "@fontsource/space-grotesk/500.css";
+import "@fontsource/space-grotesk/700.css";
+import "@fontsource/jetbrains-mono/400.css";
 import "../styles/global.css";
 import { profiles } from "../data/person";
 
@@ -48,15 +52,6 @@ const {
 		<meta property="twitter:title" content={title} />
 		<meta property="twitter:description" content={description} />
 		<meta property="twitter:image" content={new URL(image, Astro.url)} />
-
-		<!-- GOOGLE FONTS -->
-		<link rel="preconnect" href="https://fonts.googleapis.com" />
-		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-		<link
-			href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@500;700&display=swap"
-			rel="stylesheet"
-		/>
-
 
 		<!-- Identity: rel="me" links to verified profiles -->
 		{Object.values(profiles).map((href) => <link rel="me" href={href} />)}
