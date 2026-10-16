@@ -15,6 +15,7 @@ export const profiles = {
   x: "https://x.com/othylmann",
   medium: "https://medium.com/@othylmann",
   github: "https://github.com/othylmann",
+  instagram: "https://www.instagram.com/othylmann/",
   giantSwarmAuthor: "https://giantswarm.io/blog/author/oliver-thylmann",
 };
 
@@ -97,11 +98,13 @@ export const person = {
   ],
   memberOf: {
     "@type": "OrganizationRole",
-    roleName: "Governing Board member",
+    roleName: "Governing Board member (General Member Representative)",
+    url: "https://neonephos.org/governing_board",
     memberOf: {
       "@type": "Organization",
       name: "NeoNephos Foundation",
       url: "https://neonephos.org/",
+      parentOrganization: { "@type": "Organization", name: "Linux Foundation Europe" },
     },
   },
   knowsAbout: [
