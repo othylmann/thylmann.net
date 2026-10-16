@@ -63,6 +63,7 @@ export const person = {
   image: [
     `${SITE}/images/oliver-thylmann-portrait.jpg`,
     `${SITE}/images/oliver-thylmann-og.jpg`,
+    `${SITE}/images/oliver-thylmann-portrait-1080x1350.jpg`,
   ],
   description:
     "German serial entrepreneur based in Cologne and co-founder of Giant Swarm, a Kubernetes platform company. Previously co-founded Ormigo and adcloud (acquired by Deutsche Post DHL in 2011).",
@@ -122,6 +123,7 @@ export const person = {
     "Digital sovereignty",
     "Entrepreneurship",
     "Online advertising",
+    "Angel investing",
   ],
   knowsLanguage: ["de", "en", "fr"],
   sameAs: Object.values(profiles),
