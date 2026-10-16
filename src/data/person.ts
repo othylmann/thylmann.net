@@ -60,6 +60,10 @@ export const person = {
   familyName: "Thylmann",
   url: `${SITE}/`,
   mainEntityOfPage: `${SITE}/about/`,
+  image: [
+    `${SITE}/images/oliver-thylmann-portrait.jpg`,
+    `${SITE}/images/oliver-thylmann-og.jpg`,
+  ],
   description:
     "German serial entrepreneur based in Cologne and co-founder of Giant Swarm, a Kubernetes platform company. Previously co-founded Ormigo and adcloud (acquired by Deutsche Post DHL in 2011).",
   jobTitle: "Co-Founder & Co-CEO",
@@ -96,17 +100,20 @@ export const person = {
       recognizedBy: { "@type": "CollegeOrUniversity", name: "Open University Business School" },
     },
   ],
-  memberOf: {
-    "@type": "OrganizationRole",
-    roleName: "Governing Board member (General Member Representative)",
-    url: "https://neonephos.org/governing_board",
-    memberOf: {
-      "@type": "Organization",
-      name: "NeoNephos Foundation",
-      url: "https://neonephos.org/",
-      parentOrganization: { "@type": "Organization", name: "Linux Foundation Europe" },
+  memberOf: [
+    {
+      "@type": "OrganizationRole",
+      roleName: "Governing Board member (General Member Representative)",
+      url: "https://neonephos.org/governing_board",
+      memberOf: {
+        "@type": "Organization",
+        name: "NeoNephos Foundation",
+        url: "https://neonephos.org/",
+        parentOrganization: { "@type": "Organization", name: "Linux Foundation Europe" },
+      },
     },
-  },
+    { "@type": "Organization", name: "Cölner Club" },
+  ],
   knowsAbout: [
     "Kubernetes",
     "Cloud-native infrastructure",

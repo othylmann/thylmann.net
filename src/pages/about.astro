@@ -36,9 +36,18 @@ const fmt = (d: string) =>
     <div class="full-width md:col-start-2 md:col-end-3 px-6">
       <header class="mb-16 animate-fade-in">
         <a href="/" class="text-accent font-mono text-sm hover:underline mb-4 inline-block">← Back Home</a>
-        <h1 class="text-5xl md:text-7xl font-bold tracking-tight leading-[0.95] mb-8">
-          About Oliver<br />Thylmann<span class="text-accent">.</span>
-        </h1>
+        <div class="flex flex-col-reverse sm:flex-row sm:items-end sm:justify-between gap-8 mb-8">
+          <h1 class="text-5xl md:text-7xl font-bold tracking-tight leading-[0.95]">
+            About Oliver<br />Thylmann<span class="text-accent">.</span>
+          </h1>
+          <img
+            src="/images/oliver-thylmann-portrait.jpg"
+            alt="Oliver Thylmann"
+            width="800"
+            height="800"
+            class="w-32 h-32 md:w-40 md:h-40 rounded-2xl object-cover border border-white/10 shrink-0"
+          />
+        </div>
 
         <div class="space-y-6 max-w-prose text-lg leading-relaxed text-text-muted">
           <p class="text-xl md:text-2xl text-text-main">
@@ -63,6 +72,7 @@ const fmt = (d: string) =>
             <a href="https://neonephos.org/governing_board" class="text-accent hover:underline">Governing Board of the
             NeoNephos Foundation</a>, a Linux Foundation Europe project which advances open-source digital sovereignty in Europe, co-hosts the
             German tech podcast <em>Die Nerd Show</em>, and invests as an angel in developer-tool startups.
+            In Cologne he is a member of the Cölner Club.
           </p>
         </div>
       </header>
