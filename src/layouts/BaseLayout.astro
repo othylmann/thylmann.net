@@ -1,11 +1,14 @@
 ---
 import "../styles/global.css";
+import { profiles } from "../data/person";
 
 interface Props {
 	title: string;
 	description?: string;
 	image?: string;
 	canonicalURL?: URL | string;
+	schema?: object;
+	ogType?: string;
 }
 
 const {
@@ -13,6 +16,8 @@ const {
 	description = "Oliver Thylmann - Serial Entrepreneur & Developer Whisperer",
 	image = "/favicon.svg",
 	canonicalURL = new URL(Astro.url.pathname, Astro.site),
+	schema,
+	ogType = "website",
 } = Astro.props;
 ---
 
@@ -31,7 +36,7 @@ const {
 		<link rel="canonical" href={canonicalURL} />
 
 		<!-- Open Graph / Facebook -->
-		<meta property="og:type" content="website" />
+		<meta property="og:type" content={ogType} />
 		<meta property="og:url" content={Astro.url} />
 		<meta property="og:title" content={title} />
 		<meta property="og:description" content={description} />
@@ -52,7 +57,12 @@ const {
 			rel="stylesheet"
 		/>
 
-		<title>{title}</title>
+
+		<!-- Identity: rel="me" links to verified profiles -->
+		{Object.values(profiles).map((href) => <link rel="me" href={href} />)}
+
+		<!-- Structured data (schema.org) -->
+		{schema && <script type="application/ld+json" set:html={JSON.stringify(schema)} />}
 	</head>
 	<body
 		class="bg-bg-base text-text-main min-h-screen selection:bg-accent selection:text-bg-base"

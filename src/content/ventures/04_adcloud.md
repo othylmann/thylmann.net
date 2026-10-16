@@ -1,7 +1,7 @@
 ---
-title: "Adcloud"
-role: "Founder"
+title: "adcloud"
+role: "Co-Founder & Managing Director"
 year: "2008"
-description: "Performance advertising network. Scaled to high volume traffic. Acquired by DHL in 2011."
+description: "Performance advertising network, co-founded with Henning Lange in Cologne. Acquired by Deutsche Post DHL in 2011."
 order: 4
 ---

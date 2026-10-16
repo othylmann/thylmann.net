@@ -1,14 +1,20 @@
 ---
 import { getCollection } from 'astro:content';
 
+interface Props {
+  index?: string;
+  title?: string;
+}
+const { index = '01.', title = 'The Journey' } = Astro.props;
+
 const ventures = await getCollection('ventures');
 const sortedVentures = ventures.sort((a, b) => b.data.order - a.data.order);
 ---
 
 <section id="ventures" class="py-20">
   <h2 class="text-3xl font-bold mb-16 text-text-main flex items-center gap-4">
-    <span class="text-accent text-sm font-mono">01.</span>
-    The Journey
+    <span class="text-accent text-sm font-mono">{index}</span>
+    {title}
   </h2>
 
   <div class="relative border-l border-white/10 ml-4 md:ml-12 space-y-12">

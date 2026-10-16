@@ -1,8 +1,8 @@
 ---
 title: "Giant Swarm"
-role: "Co-Founder / Head of Relationships"
+role: "Co-Founder & Co-CEO"
 year: "2014"
 link: "https://giantswarm.io"
-description: "Solving Cloud Native Infrastructure and helping companies make their developers more productive."
+description: "Co-founded with Henning Lange and Timo Derstappen in Cologne. Giant Swarm runs cloud-native Kubernetes platforms for enterprises so their developers can focus on building products."
 order: 5
 ---
