@@ -64,6 +64,7 @@ export const person = {
     `${SITE}/images/oliver-thylmann-portrait.jpg`,
     `${SITE}/images/oliver-thylmann-og.jpg`,
     `${SITE}/images/oliver-thylmann-portrait-1080x1350.jpg`,
+    `${SITE}/images/oliver-thylmann-formal.jpg`,
   ],
   description:
     "German serial entrepreneur based in Cologne and co-founder of Giant Swarm, a Kubernetes platform company. Previously co-founded Ormigo and adcloud (acquired by Deutsche Post DHL in 2011).",
