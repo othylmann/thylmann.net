@@ -146,7 +146,7 @@ export const organizations = [
     name: "Giant Swarm",
     legalName: "Giant Swarm GmbH",
     url: "https://giantswarm.io/",
-    sameAs: ["https://github.com/giantswarm"],
+    sameAs: ["https://www.wikidata.org/wiki/Q141753589", "https://github.com/giantswarm"],
     foundingDate: "2014",
     foundingLocation: { "@type": "Place", name: "Cologne, Germany" },
     founder: [
