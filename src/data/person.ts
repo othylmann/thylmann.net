@@ -19,7 +19,29 @@ export const profiles = {
   giantSwarmAuthor: "https://giantswarm.io/blog/author/oliver-thylmann",
 };
 
-export const press = [
+export const press: {
+  headline: string;
+  publisher: string;
+  datePublished: string;
+  url: string;
+  inLanguage: string;
+  type?: string;
+}[] = [
+  {
+    headline: "51. beCommerce with Oliver Thylmann",
+    publisher: "Catch the Tornado (podcast)",
+    datePublished: "2025-05-12",
+    url: "https://www.catchthetornado.com/podcast/51-becommerce-with-oliver-thylmann",
+    inLanguage: "en",
+    type: "PodcastEpisode",
+  },
+  {
+    headline: "Videotipp: So unterstützt Giant Swarm Adidas bei der Umstellung auf Kubernetes",
+    publisher: "Digitale Leute",
+    datePublished: "2018-05-22",
+    url: "https://www.digitale-leute.de/interview/giant-swarm-adidas-kubernetes/",
+    inLanguage: "de",
+  },
   {
     headline: "Microservice-Infrastruktur: Giant Swarm lässt mehr Entwickler ran",
     publisher: "Computerwoche",
@@ -129,7 +151,7 @@ export const person = {
   knowsLanguage: ["de", "en", "fr"],
   sameAs: Object.values(profiles),
   subjectOf: press.map((p) => ({
-    "@type": "NewsArticle",
+    "@type": p.type ?? "NewsArticle",
     headline: p.headline,
     datePublished: p.datePublished,
     url: p.url,
