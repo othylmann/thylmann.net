@@ -7,7 +7,7 @@ Oliver Thylmann's personal site. A static Astro site deployed to GitHub Pages at
 - Astro 7 (static output), Tailwind CSS 4 via the Vite plugin, TypeScript
 - `@astrojs/sitemap` generates `sitemap-index.xml` on build; don't hand-write sitemaps
 - `rss-parser` for build-time feeds, Vitest for unit tests
-- Node 22 (matches CI)
+- Node 24 in CI (bundles npm 11). Lockfiles written by npm 11 fail `npm ci` on npm 10, so keep local npm at 11+
 
 ## Commands
 
