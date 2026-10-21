@@ -5,6 +5,7 @@ import "@fontsource/space-grotesk/700.css";
 import "@fontsource/jetbrains-mono/400.css";
 import "../styles/global.css";
 import { profiles } from "../data/person";
+import { BLOG_URL, BLOG_FEED_URL } from "../utils/blog";
 
 interface Props {
 	title: string;
@@ -55,6 +56,11 @@ const {
 
 		<!-- Identity: rel="me" links to verified profiles -->
 		{Object.values(profiles).map((href) => <link rel="me" href={href} />)}
+		<link rel="me" href={BLOG_URL} />
+
+		<!-- Machine-readable entry points for feed readers and AI agents -->
+		<link rel="alternate" type="application/rss+xml" title="Oliver Thylmann's Musings" href={BLOG_FEED_URL} />
+		<link rel="alternate" type="text/plain" title="llms.txt" href="/llms.txt" />
 
 		<!-- Structured data (schema.org) -->
 		{schema && <script type="application/ld+json" set:html={JSON.stringify(schema)} />}

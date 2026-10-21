@@ -224,6 +224,16 @@ export const podcast = {
   ],
 };
 
+export const blog = {
+  "@type": "Blog",
+  "@id": `${SITE}/#blog`,
+  name: "Oliver Thylmann's Musings",
+  url: "https://blog.thylmann.net/",
+  inLanguage: "en",
+  author: personRef,
+  publisher: personRef,
+};
+
 export const website = {
   "@type": "WebSite",
   "@id": `${SITE}/#website`,
@@ -237,7 +247,7 @@ export const website = {
 export function homeSchema() {
   return {
     "@context": "https://schema.org",
-    "@graph": [website, person],
+    "@graph": [website, person, blog],
   };
 }
 
@@ -258,6 +268,7 @@ export function aboutSchema() {
       person,
       ...organizations,
       podcast,
+      blog,
     ],
   };
 }

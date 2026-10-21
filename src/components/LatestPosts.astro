@@ -1,0 +1,55 @@
+---
+import { getLatestPosts, BLOG_URL } from "../utils/blog";
+
+const posts = await getLatestPosts(5);
+
+const formatDate = (date: string) =>
+  date
+    ? new Date(date).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" })
+    : "";
+---
+
+{
+  posts.length > 0 && (
+    <section class="pb-16">
+      <h2 class="text-3xl md:text-4xl font-bold mb-10 text-text-main flex items-center gap-4">
+        <span class="text-accent text-sm font-mono">02.</span>
+        Latest Writing
+      </h2>
+
+      <ul class="divide-y divide-text-muted/20">
+        {posts.map((post) => (
+          <li>
+            <a
+              href={post.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="group flex flex-col md:flex-row md:items-baseline gap-1 md:gap-6 py-5"
+            >
+              <time datetime={post.date} class="font-mono text-xs text-text-muted md:w-28 shrink-0">
+                {formatDate(post.date)}
+              </time>
+              <div>
+                <h3 class="text-lg font-bold text-text-main group-hover:text-accent transition-colors">
+                  {post.title}
+                </h3>
+                {post.description && (
+                  <p class="text-text-secondary text-sm mt-1">{post.description}</p>
+                )}
+              </div>
+            </a>
+          </li>
+        ))}
+      </ul>
+
+      <a
+        href={BLOG_URL}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="inline-block mt-6 text-accent font-mono text-sm hover:underline"
+      >
+        All posts on blog.thylmann.net →
+      </a>
+    </section>
+  )
+}
