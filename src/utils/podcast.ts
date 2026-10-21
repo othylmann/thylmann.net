@@ -9,7 +9,7 @@ interface PodcastEpisode {
 export async function getLatestEpisode(): Promise<PodcastEpisode | null> {
   const parser = new Parser();
   try {
-    const feed = await parser.parseURL('https://interesse.podigee.io/feed/mp3');
+    const feed = await parser.parseURL('https://api.riverside.com/hosting/DNlgur7b.rss');
     
     if (!feed.items || feed.items.length === 0) {
       return null;
@@ -20,7 +20,7 @@ export async function getLatestEpisode(): Promise<PodcastEpisode | null> {
     return {
       title: latest.title || 'Latest Episode',
       audioUrl: latest.enclosure?.url || '',
-      link: latest.link || 'https://interesse.podigee.io/'
+      link: latest.link || 'https://dienerdshow.de/'
     };
   } catch (error) {
     console.error('Error fetching podcast feed:', error);
