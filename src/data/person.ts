@@ -13,7 +13,6 @@ export const GIANT_SWARM_ID = `${SITE}/#giantswarm`;
 export const profiles = {
   linkedin: "https://www.linkedin.com/in/othylmann",
   x: "https://x.com/othylmann",
-  medium: "https://medium.com/@othylmann",
   github: "https://github.com/othylmann",
   instagram: "https://www.instagram.com/othylmann/",
   giantSwarmAuthor: "https://giantswarm.io/blog/author/oliver-thylmann",

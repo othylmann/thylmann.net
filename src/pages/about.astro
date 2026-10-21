@@ -3,6 +3,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import Timeline from "../components/Timeline.astro";
 import Footer from "../components/Footer.astro";
 import { aboutSchema, press, profiles } from "../data/person";
+import { BLOG_URL } from "../utils/blog";
 
 const title = "About Oliver Thylmann | Serial Entrepreneur, Co-Founder of Giant Swarm";
 const description =
@@ -20,7 +21,7 @@ const facts = [
 const links = [
   { label: "LinkedIn", href: profiles.linkedin },
   { label: "X / Twitter", href: profiles.x },
-  { label: "Medium", href: profiles.medium },
+  { label: "Blog", href: BLOG_URL },
   { label: "GitHub", href: profiles.github },
   { label: "Instagram", href: profiles.instagram },
   { label: "Giant Swarm blog", href: profiles.giantSwarmAuthor },

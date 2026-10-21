@@ -45,7 +45,6 @@ export const GET: APIRoute = async () => {
     "",
     `- [LinkedIn](${profiles.linkedin})`,
     `- [X / Twitter](${profiles.x})`,
-    `- [Medium](${profiles.medium}): Older long-form posts`,
     `- [GitHub](${profiles.github})`,
     `- [Giant Swarm blog posts](${profiles.giantSwarmAuthor})`,
     "",
